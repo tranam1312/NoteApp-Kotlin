@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+
+    android:id="@+id/layotitem_firebase"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+       <LinearLayout
+           android:weightSum="10"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               android:layout_weight="9"
+               android:orientation="vertical"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <TextView
+
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/title_firebase"
+                   android:textSize="20dp"
+                   android:maxLines="1"
+                   android:textColor="@color/black"
+                   android:gravity="fill_horizontal"/>
+               <TextView
+                   android:maxLines="2"
+                   android:layout_marginTop="10dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/container_firebase"
+                   android:textSize="14dp" />
+
+           </LinearLayout>
+           <CheckBox
+               android:layout_weight="1"
+               android:layout_marginTop="7dp"
+               android:layout_marginLeft="15dp"
+               android:visibility="gone"
+               android:gravity="center"
+               android:id="@+id/checked_firebase"
+               android:layout_width="30dp"
+               android:layout_height="30dp" />
+
+       </LinearLayout>
+        <TextView
+            android:id="@+id/date_firebase"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:maxLines="1"
+            android:gravity="right" />
+
+
+
+</LinearLayout>
