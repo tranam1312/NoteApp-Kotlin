@@ -1,9 +1,11 @@
 package com.example.noteapp.adapter
 
+import android.R.attr.timeZone
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -12,13 +14,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.R
 import com.example.noteapp.model.Note
+import java.text.SimpleDateFormat
 
-class NoteAdapter(private val context: Context,private val onLongClickListener:(Note)->Unit,
-private val onClickListener: (Note) -> Unit): RecyclerView.Adapter<NoteAdapter.NoteViewHordel>() {
+
+class NoteAdapter(private val context: Context,private val onLongClickListener: (Note) -> Unit,
+                  private val onClickListener: (Note) -> Unit): RecyclerView.Adapter<NoteAdapter.NoteViewHordel>() {
     private var notes :List<Note> = listOf()
     var hide:Boolean = false
     private var selected = mutableListOf<Note>()
-inner class NoteViewHordel(itemView:View):RecyclerView.ViewHolder(itemView){
+inner class NoteViewHordel(itemView: View):RecyclerView.ViewHolder(itemView){
     var txtTitle: TextView = itemView.findViewById(R.id.title)
     var txtContainer:TextView = itemView.findViewById(R.id.container)
     var txtTime :TextView = itemView.findViewById(R.id.date)
@@ -36,6 +40,7 @@ inner class NoteViewHordel(itemView:View):RecyclerView.ViewHolder(itemView){
         else{
             checkBox.visibility = View.GONE
         }
+
         layoyItem.setOnLongClickListener {
             onLongClickListener(note)
             hide = true
@@ -46,7 +51,7 @@ inner class NoteViewHordel(itemView:View):RecyclerView.ViewHolder(itemView){
 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHordel {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.item_note,parent,false)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.item_note, parent, false)
         return NoteViewHordel(itemView)
     }
 
@@ -61,13 +66,13 @@ inner class NoteViewHordel(itemView:View):RecyclerView.ViewHolder(itemView){
                 if (!holder.checkBox.isChecked){
                     notes[position].check = true
                     selected.add(notes[position])
-                    Log.d("nma",selected.toString())
+                    Log.d("nma", selected.toString())
                     notifyDataSetChanged()
                 }
                 else{
                     notes[position].check= false
                     selected.remove(notes[position])
-                    Log.d("jjj",selected.toString())
+                    Log.d("jjj", selected.toString())
                     notifyDataSetChanged()
                 }
             }else{
@@ -76,7 +81,7 @@ inner class NoteViewHordel(itemView:View):RecyclerView.ViewHolder(itemView){
         }
 
     }
-    fun setNoteAdapter(notes:List<Note>){
+    fun setNoteAdapter(notes: List<Note>){
         this.notes = notes
         notifyDataSetChanged()
     }
@@ -90,6 +95,9 @@ inner class NoteViewHordel(itemView:View):RecyclerView.ViewHolder(itemView){
         hide = false
         notifyDataSetChanged()
     }
+
+
+
 
 
 }

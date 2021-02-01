@@ -7,11 +7,11 @@ import com.example.noteapp.model.Note
 @Dao
 interface NoteDao {
     @Update
-    suspend fun Update(note: Note)
+    suspend fun Update( note: Note)
     @Insert
-    suspend fun addNote(note: Note)
+    suspend fun addNote(  note: Note)
     @Insert
-    suspend fun addList(notes: List<Note>)
+    suspend fun addList( notes: List<Note>)
     @Delete
     suspend fun DeleteList(note: List<Note>)
     @Delete

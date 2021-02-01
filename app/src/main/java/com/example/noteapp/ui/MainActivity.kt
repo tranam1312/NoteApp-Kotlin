@@ -2,6 +2,7 @@ package com.example.noteapp.ui
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -20,18 +21,18 @@ import com.example.noteapp.adapter.NoteAdapter
 import com.example.noteapp.adapter.NoteFirebasAdapter
 import com.example.noteapp.model.Model
 import com.example.noteapp.model.Note
+import com.example.noteapp.service.Broadcast
 import com.example.noteapp.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity() : AppCompatActivity() {
     private val noteViewModel: NoteViewModel by lazy {
         ViewModelProvider(this, NoteViewModel.NoteViewModelFactory(this.application))[NoteViewModel::class.java]
     }
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
     private lateinit var adapter: NoteAdapter
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
         mAuth = FirebaseAuth.getInstance()
         checkLogin()
-        initFirebase()
+
     }
 
     fun checkLogin() {
@@ -69,12 +70,14 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
+
             })
             initFirebase()
 
+        }else{
+            init()
         }
     }
-
 
     fun setHome(boolean: Boolean) {
         supportActionBar?.setDisplayHomeAsUpEnabled(boolean)
@@ -91,6 +94,14 @@ class MainActivity : AppCompatActivity() {
             adapterNoteFirebasAdapter.setNoteAdapterFibase(it)
         })
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val  s_intentFilter = IntentFilter()
+        s_intentFilter.addAction(Intent.ACTION_TIME_TICK)
+        s_intentFilter.addAction(Intent.ACTION_TIME_CHANGED)
+        registerReceiver(callback, s_intentFilter)
     }
 
     val onLongClickListener: (Model) -> Unit = {
@@ -163,9 +174,7 @@ class MainActivity : AppCompatActivity() {
     }
     private val onClick: (Note) -> Unit = {
         val intent = Intent(this, Update_NoteApp::class.java)
-        intent.putExtra("title", it.title.toString())
-        intent.putExtra("container", it.container.toString())
-        intent.putExtra("time", it.time).toString()
+        intent.putExtra("updatenote",it)
         startActivity(intent)
     }
 
@@ -190,6 +199,7 @@ class MainActivity : AppCompatActivity() {
         if (currenctUser != null) {
 
         } else {
+
             textView.setText("Do you want delete ${adapter.getSelected().size} item ?")
             var btn_no: Button = dialog.findViewById(R.id.no)
             var btn_yes: Button = dialog.findViewById(R.id.yes)
@@ -205,8 +215,16 @@ class MainActivity : AppCompatActivity() {
                 btn_add.visibility = VISIBLE
                 dialog.dismiss()
             }
-
             dialog.show()
         }
     }
+
+    val callback = Broadcast(object : Broadcast.setNotifi {
+        override fun setNotification() {
+            noteViewModel.getAllNote().observe(this@MainActivity, Observer {
+
+            })
+        }
+
+    })
 }

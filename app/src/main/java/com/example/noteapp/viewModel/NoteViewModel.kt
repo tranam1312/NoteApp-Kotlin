@@ -1,17 +1,16 @@
 package com.example.noteapp.viewModel
 
 import android.app.Application
-import androidx.annotation.NonNull
 import androidx.lifecycle.*
+import com.example.noteapp.R
 import com.example.noteapp.database.responstrory.NoteReponstory
+import com.example.noteapp.model.BackGround
 import com.example.noteapp.model.Model
 import com.example.noteapp.model.Note
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch
 
 
 class NoteViewModel(app: Application) :ViewModel(){
-
     private val reponstory:NoteReponstory = NoteReponstory(app)
     fun updateNote(note: Note) = viewModelScope.launch {
         reponstory.updateNote(note)
@@ -38,6 +37,15 @@ class NoteViewModel(app: Application) :ViewModel(){
     fun deleteFirebase(models :List<Model>)= viewModelScope.launch {
         reponstory.deleteFirebas(models)
     }
+    fun listBackground():ArrayList<BackGround>{
+        val listBackGround:ArrayList<BackGround> = arrayListOf()
+        listBackGround.add(BackGround(R.drawable.aanh))
+        listBackGround.add(BackGround(R.drawable.anh))
+        listBackGround.add(BackGround(R.drawable.ashn))
+        listBackGround.add(BackGround(R.drawable.unnamed))
+        return listBackGround
+    }
+
 
     fun getAllNote():LiveData<List<Note>> = reponstory.getAllNote()
     class  NoteViewModelFactory(private val app: Application):ViewModelProvider.Factory {

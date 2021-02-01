@@ -1,6 +1,7 @@
 package com.example.noteapp.ui
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -48,7 +49,7 @@ class Exentend : AppCompatActivity() {
             .requestIdToken("53390066358-m6e0vtevgqn0um8vvivia0ot2v83eo3k.apps.googleusercontent.com")
             .requestEmail()
             .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         mAuth = FirebaseAuth.getInstance()
         btn_signIn.setOnClickListener {
@@ -70,7 +71,7 @@ class Exentend : AppCompatActivity() {
         super.onStart()
         val user = mAuth.currentUser
         if (user != null) {
-            Log.d("kkk","${user}")
+            Log.d("kkk", "${user}")
             btn_signIn.visibility = View.GONE
             Glide.with(this).load(user.photoUrl).into(imgView_google)
             email_google.text = user.email
@@ -79,6 +80,7 @@ class Exentend : AppCompatActivity() {
             btn_sigout_google.visibility = View.VISIBLE
             ischeck_synchronize = synchronize.isChecked
         }
+
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -108,7 +110,7 @@ class Exentend : AppCompatActivity() {
                     Log.d("Sign in success", "signInWithCredential:success")
                     val user = mAuth.currentUser
                     if (user != null) {
-                        Log.d("kkk","${user}")
+                        Log.d("kkk", "${user}")
                         btn_signIn.visibility = View.GONE
                         Glide.with(this).load(user.photoUrl).into(imgView_google)
                         email_google.text = user.email

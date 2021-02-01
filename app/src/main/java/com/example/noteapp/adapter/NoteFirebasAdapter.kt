@@ -35,6 +35,7 @@ class NoteFirebasAdapter(private val context: Context, private val onLongClickLi
             else{
                 checkBox.visibility = View.GONE
             }
+
             layoyItem.setOnLongClickListener {
                 onLongClickListener(model)
                 hide = true

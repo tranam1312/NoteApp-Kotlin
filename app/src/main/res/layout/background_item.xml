@@ -2,9 +2,10 @@
 <LinearLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="15dp"
+    android:id="@+id/layout_item_background"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/item_background_3"/>
+        android:id="@+id/item_background"/>
 </LinearLayout>
