@@ -6,7 +6,7 @@ import android.app.NotificationManager
 import android.os.Build
 import com.example.noteapp.R
 
-class NotificationChanenal : Application() {
+class Notification : Application() {
 
     companion object{
 

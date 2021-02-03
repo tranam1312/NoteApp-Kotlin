@@ -1,0 +1,8 @@
+<root>
+    <item
+        name='androidx.core.app.NotificationCompat.Builder androidx.core.app.NotificationCompat.Builder setContentTitle(java.lang.CharSequence)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="pure" val="true" />
+        </annotation>
+    </item>
+</root>

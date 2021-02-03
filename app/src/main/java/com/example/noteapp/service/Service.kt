@@ -11,6 +11,7 @@ class Service : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         return START_REDELIVER_INTENT
     }
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.R
 import com.example.noteapp.model.Note
@@ -27,6 +28,7 @@ inner class NoteViewHordel(itemView: View):RecyclerView.ViewHolder(itemView){
     var txtContainer:TextView = itemView.findViewById(R.id.container)
     var txtTime :TextView = itemView.findViewById(R.id.date)
     var checkBox:CheckBox = itemView.findViewById(R.id.checked)
+    var cardView :CardView = itemView.findViewById(R.id.cardview)
     var layoyItem :LinearLayout = itemView.findViewById(R.id.layotitem)
     fun Note(note: Note){
         txtTitle.text = note.title
@@ -39,6 +41,9 @@ inner class NoteViewHordel(itemView: View):RecyclerView.ViewHolder(itemView){
         }
         else{
             checkBox.visibility = View.GONE
+        }
+        if (note.backGround !=null){
+            cardView.setBackgroundResource(note.backGround)
         }
 
         layoyItem.setOnLongClickListener {

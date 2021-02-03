@@ -15,10 +15,14 @@ open class  Broadcast():BroadcastReceiver() {
         if (Intent.ACTION_TIME_CHANGED == action || Intent.ACTION_DATE_CHANGED == action){
             callback?.setNotification()
         }
+        when(intent?.action){
+            Intent.ACTION_TIME_TICK -> callback?.tic()
+        }
     }
 
 
 
 interface setNotifi{
     fun setNotification()
+    fun tic()
 }}

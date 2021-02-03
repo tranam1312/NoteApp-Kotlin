@@ -54,6 +54,10 @@ class Update_NoteApp : AppCompatActivity() {
             Save()
             true
         }
+        R.id.date_time_edit->{
+            dateTime(note)
+            true
+        }
         android.R.id.home->{
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
@@ -94,15 +98,10 @@ class Update_NoteApp : AppCompatActivity() {
             finish()
         }else{
             note.time = mydate
-            dateTime(note)
             note.container =container.text.toString()
             note.title = title.text.toString()
             noteViewModel.updateNote(note)
             finish()
         }
-
-
-
-
     }
 }

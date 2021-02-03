@@ -1,8 +1,13 @@
 package com.example.noteapp.ui
 
 import android.app.Dialog
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -12,7 +17,8 @@ import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,14 +31,17 @@ import com.example.noteapp.service.Broadcast
 import com.example.noteapp.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity() : AppCompatActivity() {
     private val noteViewModel: NoteViewModel by lazy {
         ViewModelProvider(this, NoteViewModel.NoteViewModelFactory(this.application))[NoteViewModel::class.java]
     }
-
+    private lateinit var date: Date
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
     private lateinit var adapter: NoteAdapter
@@ -60,7 +69,7 @@ class MainActivity() : AppCompatActivity() {
         val currenctUser = mAuth.currentUser
         if (currenctUser !== null) {
             mDatabase = FirebaseDatabase.getInstance().getReference("Note-Ap").child("${currenctUser.uid}")
-            noteViewModel.getAllNote().observe(this, Observer {
+            noteViewModel.getAllNote().observe(this@MainActivity, androidx.lifecycle.Observer {
                 if (it.isNotEmpty()) {
                     for (item in it) {
                         val key = mDatabase.child("${currenctUser.uid}").push().key
@@ -68,9 +77,6 @@ class MainActivity() : AppCompatActivity() {
                     }
                     noteViewModel.delete(it)
                 }
-
-
-
             })
             initFirebase()
 
@@ -90,7 +96,7 @@ class MainActivity() : AppCompatActivity() {
         recyclerView.adapter = adapterNoteFirebasAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        noteViewModel.getAllDatafirebase().observe(this, Observer {
+        noteViewModel.getAllDatafirebase().observe(this, androidx.lifecycle.Observer{
             adapterNoteFirebasAdapter.setNoteAdapterFibase(it)
         })
 
@@ -117,9 +123,7 @@ class MainActivity() : AppCompatActivity() {
         intent.putExtra("time", it.time.toString())
         intent.putExtra("key", it.key)
         startActivity(intent)
-
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -160,7 +164,7 @@ class MainActivity() : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        noteViewModel.getAllNote().observe(this, Observer {
+        noteViewModel.getAllNote().observe(this, androidx.lifecycle.Observer {
             adapter.setNoteAdapter(it)
         })
     }
@@ -174,7 +178,7 @@ class MainActivity() : AppCompatActivity() {
     }
     private val onClick: (Note) -> Unit = {
         val intent = Intent(this, Update_NoteApp::class.java)
-        intent.putExtra("updatenote",it)
+        intent.putExtra("updatenote", it)
         startActivity(intent)
     }
 
@@ -221,10 +225,39 @@ class MainActivity() : AppCompatActivity() {
 
     val callback = Broadcast(object : Broadcast.setNotifi {
         override fun setNotification() {
-            noteViewModel.getAllNote().observe(this@MainActivity, Observer {
+            date = Calendar.getInstance().time
+            noteViewModel.getAllNote().observe(this@MainActivity, androidx.lifecycle.Observer {
+                for (item in it) {
+                    if (item.timeSet.isEmpty() && date.before(item.timeSet as Date)) {
+                        if (item.timeSet.equals(date)) {
 
+                        }
+
+                    }
+                }
+            })
+        }
+
+        override fun tic() {
+            noteViewModel.getAllNote().observe(this@MainActivity, androidx.lifecycle.Observer {
+                for (item in it) {
+                    Log.d("ll", "$item")
+                    Notification(item)
+                }
             })
         }
 
     })
+    fun Notification(note: Note){
+
+        val   builder = NotificationCompat.Builder(this,com.example.noteapp.service.Notification.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_action_notification)
+                .setContentTitle(note.title)
+                .setContentText(note.container)
+                .build()
+        val notificationManagerCompat  = NotificationManagerCompat.from(this)
+        notificationManagerCompat.notify(note.id, builder)
+    }
+
+
 }

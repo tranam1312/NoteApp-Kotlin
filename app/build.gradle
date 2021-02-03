@@ -51,9 +51,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
 
-
 }
-
+dependencies {
+    //noinspection GradleCompatible
+    implementation "com.android.support:support-compat:27.1.1"
+}
 dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 }
