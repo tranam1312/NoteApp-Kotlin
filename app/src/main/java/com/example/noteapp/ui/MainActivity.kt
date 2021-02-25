@@ -1,13 +1,8 @@
 package com.example.noteapp.ui
 
 import android.app.Dialog
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -95,7 +90,6 @@ class MainActivity() : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapterNoteFirebasAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         noteViewModel.getAllDatafirebase().observe(this, androidx.lifecycle.Observer{
             adapterNoteFirebasAdapter.setNoteAdapterFibase(it)
         })
@@ -165,7 +159,7 @@ class MainActivity() : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         noteViewModel.getAllNote().observe(this, androidx.lifecycle.Observer {
-            adapter.setNoteAdapter(it)
+            adapter.setNoteAdapter(it.reversed())
         })
     }
 
@@ -203,7 +197,6 @@ class MainActivity() : AppCompatActivity() {
         if (currenctUser != null) {
 
         } else {
-
             textView.setText("Do you want delete ${adapter.getSelected().size} item ?")
             var btn_no: Button = dialog.findViewById(R.id.no)
             var btn_yes: Button = dialog.findViewById(R.id.yes)

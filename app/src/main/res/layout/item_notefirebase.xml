@@ -1,62 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp"
-
+    android:padding="10dp"
     android:id="@+id/layotitem_firebase"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-       <LinearLayout
-           android:weightSum="10"
-           android:orientation="horizontal"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <LinearLayout
-               android:layout_weight="9"
-               android:orientation="vertical"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
-
-               <TextView
-
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:id="@+id/title_firebase"
-                   android:textSize="20dp"
-                   android:maxLines="1"
-                   android:textColor="@color/black"
-                   android:gravity="fill_horizontal"/>
-               <TextView
-                   android:maxLines="2"
-                   android:layout_marginTop="10dp"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:id="@+id/container_firebase"
-                   android:textSize="14dp" />
-
-           </LinearLayout>
-           <CheckBox
-               android:layout_weight="1"
-               android:layout_marginTop="7dp"
-               android:layout_marginLeft="15dp"
-               android:visibility="gone"
-               android:gravity="center"
-               android:id="@+id/checked_firebase"
-               android:layout_width="30dp"
-               android:layout_height="30dp" />
-
-       </LinearLayout>
-        <TextView
-            android:id="@+id/date_firebase"
-            android:layout_marginTop="10dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:id="@+id/title_firebase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="fill_horizontal"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/container_firebase"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="2"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checked_firebase"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/date_firebase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right"
             android:maxLines="1"
-            android:gravity="right" />
+            android:textSize="10dp" />
+    </androidx.cardview.widget.CardView>
 
 
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

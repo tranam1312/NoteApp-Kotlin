@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Hight"
+        android:id="@+id/hight"/>
+    <item android:title="Medium"
+        android:id="@+id/medium"/>
+    <item android:title="Low "
+        android:id="@+id/low"/>
+    <item android:title="Default"
+        android:id="@+id/default_notice"/>
+</menu>

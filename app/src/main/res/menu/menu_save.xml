@@ -5,8 +5,14 @@
         android:id="@+id/date_time"
         android:icon="@drawable/ic_action_time"
         app:showAsAction="always" />
+    <item android:id="@+id/background"
+        android:title="background_save"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_action_background"/>
 <item android:title="save"
     android:id="@+id/save"
     android:icon="@drawable/ic_action_save"
-    app:showAsAction="always"/>
+    app:showAsAction="always"
+    />
+
 </menu>
