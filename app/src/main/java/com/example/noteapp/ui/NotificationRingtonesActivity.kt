@@ -7,7 +7,7 @@ import android.view.MenuItem
 import com.example.noteapp.R
 
 class NotificationRingtonesActivity : AppCompatActivity() {
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification_ringtones)
